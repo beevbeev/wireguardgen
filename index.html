@@ -1,45 +1,31 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WireGuard Link Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            direction: rtl;
+    <title>Generate Link</title>
+    <script>
+        function generateRandomString(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+            }
+            return result;
         }
-        #link {
-            margin: 20px;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 600px;
-            word-wrap: break-word;
+
+        function generateLink() {
+            const publicKey = encodeURIComponent(generateRandomString(44));
+            const secretKey = encodeURIComponent(generateRandomString(32));
+            const baseLink = "purguard://0JEEgn1dKEHlSJ%2FIwMNJyFz40B8gpBpZ%2Bi6IRcC7sHc%3D@engage.cloudflareclient.com:2408?address=172.16.0.2%2F32%2C2606%3A4700%3A110%3A8918%3A721f%3A8c1b%3Aab48%3A49cb%2F128&presharedkey=&reserved=193%2C15%2C169&publickey=" + publicKey + "&mtu=1280#purguard";
+
+            document.getElementById("link").href = baseLink;
+            document.getElementById("link").textContent = "Generated Link";
         }
-        #copyButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-        }
-        #copyButton:hover {
-            background-color: #0056b3;
-        }
-    </style>
+
+        window.onload = generateLink;
+    </script>
 </head>
 <body>
-    <h1>ساخت لینک WireGuard</h1>
-    <div id="link">لینک در حال ایجاد...</div>
-    <button id="copyButton">کپی لینک</button>
-
-    <script src="script.js"></script>
+    <a id="link" href="#">Generate Link</a>
 </body>
 </html>
