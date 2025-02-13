@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Generate WireGuard Link</title>
+    <title>Generate Purguard Link</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -51,23 +51,20 @@
         }
     </style>
     <script>
-        const privateKeys = [
-            "sELWdCXKdx552KD3e8Y9dVHMROr5yt/qaI06f4JHAGs=",
-            "UCca1UObImPI8NQbiQp6w6zgjXjZlU/pFm4DYJeYGF0=",
-            "EEf/yRJGPHk1lrg5wYi4GsC5fKIj/ltOI5XBqtNivFY=",
-            "OB/3j2FALlgiVfq9C/k4gc7bjdBv3gV917PasIFc8kc=",
-            "EItDZRj/W7jY/+rTdd8tvYVnxuKFpmFey2cyarN1IFw="
-        ];
-
-        function generateRandomString() {
-            const randomIndex = Math.floor(Math.random() * privateKeys.length);
-            return privateKeys[randomIndex];
+        function generateRandomString(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+            }
+            return result + '=';
         }
 
         function generateLink() {
-            const publicKey1 = encodeURIComponent(generateRandomString());
-            const publicKey2 = encodeURIComponent(generateRandomString());
-            const baseLink = `purguard://${publicKey1}@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey2}&mtu=1280#purguard`;
+            const privateKey = "gJ0g7cKrSRQqpQuVhzCz2b1UOhlY9843ucixl6jBe2o=";
+            const publicKey = encodeURIComponent(generateRandomString(43));
+            const baseLink = `purguard://${privateKey}@188.114.98.42:4198?address=172.16.0.2%2F32&presharedkey=&reserved=172%2C3%2C55&publickey=${publicKey}&mtu=1280#purguard`;
 
             document.getElementById("link").href = baseLink;
             document.getElementById("link").textContent = baseLink;
