@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Generate WireGuard Link</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             display: flex;
@@ -19,12 +20,14 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
         }
 
         a#link {
             display: block;
             margin: 20px 0;
-            font-size: 16px;
+            font-size: 14px;
             word-wrap: break-word;
             padding: 10px;
             border: 1px solid #ccc;
@@ -40,6 +43,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
 
         button:hover {
@@ -60,7 +64,7 @@
         function generateLink() {
             const publicKey1 = encodeURIComponent(generateRandomString(44));
             const publicKey2 = encodeURIComponent(generateRandomString(44));
-            const baseLink = `wireguard://${publicKey1}@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey2}&mtu=1280#purguard`;
+            const baseLink = `purguard://${publicKey1}@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey2}&mtu=1280#purguard`;
 
             document.getElementById("link").href = baseLink;
             document.getElementById("link").textContent = baseLink;
