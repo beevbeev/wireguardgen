@@ -58,9 +58,9 @@
         }
 
         function generateLink() {
-            const publicKey = encodeURIComponent(generateRandomString(44));
-            const privateKey = encodeURIComponent(generateRandomString(32));
-            const baseLink = `wireguard://gJ0g7cKrSRQqpQuVhzCz2b1UOhlY9843ucixl6jBe2o%3D@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey}&privatekey=${privateKey}&mtu=1280#purguard`;
+            const publicKey1 = encodeURIComponent(generateRandomString(44));
+            const publicKey2 = encodeURIComponent(generateRandomString(44));
+            const baseLink = `wireguard://${publicKey1}@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey2}&mtu=1280#purguard`;
 
             document.getElementById("link").href = baseLink;
             document.getElementById("link").textContent = baseLink;
@@ -82,7 +82,7 @@
 </head>
 <body>
     <div class="container">
-        <a id="link" href="#" target="_blank">Generate Link</a>
+        <a id="link" href="#" target="_blank">Generated Link</a>
         <br>
         <button onclick="copyLink()">Copy Link</button>
     </div>
