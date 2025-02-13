@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Generate Link</title>
+    <title>Generate WireGuard Link</title>
     <script>
         function generateRandomString(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -15,17 +15,30 @@
 
         function generateLink() {
             const publicKey = encodeURIComponent(generateRandomString(44));
-            const secretKey = encodeURIComponent(generateRandomString(32));
-            const baseLink = `purguard://0JEEgn1dKEHlSJ%2FIwMNJyFz40B8gpBpZ%2Bi6IRcC7sHc%3D@engage.cloudflareclient.com:2408?address=172.16.0.2%2F32%2C2606%3A4700%3A110%3A8918%3A721f%3A8c1b%3Aab48%3A49cb%2F128&presharedkey=${secretKey}&reserved=193%2C15%2C169&publickey=${publicKey}&mtu=1280#purguard`;
+            const privateKey = encodeURIComponent(generateRandomString(32));
+            const baseLink = `wireguard://gJ0g7cKrSRQqpQuVhzCz2b1UOhlY9843ucixl6jBe2o%3D@188.114.98.42:4198?address=172.16.0.2%2F32&reserved=172%2C3%2C55&publickey=${publicKey}&privatekey=${privateKey}&mtu=1280#purguard`;
 
             document.getElementById("link").href = baseLink;
             document.getElementById("link").textContent = baseLink;
+        }
+
+        function copyLink() {
+            const link = document.getElementById("link").href;
+            const el = document.createElement('textarea');
+            el.value = link;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert("Link copied to clipboard!");
         }
 
         window.onload = generateLink;
     </script>
 </head>
 <body>
-    <a id="link" href="#">Generated Link</a>
+    <a id="link" href="#" target="_blank">Generate Link</a>
+    <br><br>
+    <button onclick="copyLink()">Copy Link</button>
 </body>
 </html>
